@@ -5,6 +5,8 @@ import ProductoItems from './ProductoItems'
 import { Navbar } from "../Navbar";
 import Menu from "../Navbar/Menu"
 import Carrito from "../Carrito";
+import Footer from '../Footer';
+
 export const ProductoDetalles = () => {
     const value = useContext(DataContext);
     const [productos] = value.productos;
@@ -42,75 +44,80 @@ export const ProductoDetalles = () => {
     return (
 
         <>
-            <Navbar />
-            <Menu />
-            <Carrito />
+            <div>
+                <Navbar />
+                <Menu />
+                <Carrito />
 
-            {
+                {
 
-                <div className="detalles">
+                    <div className="detalles">
+                        <h2>{detalle.title}</h2>
+                        <p className="price">${detalle.price}</p>
+                        <div className='grid'>
+                            <p className="nuevo">Rated</p>
+                            <div className="size">
+                                <select placeholder='Tamaño' >
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                    <option value="1">3</option>
+                                    <option value="1">4</option>
+                                    <option value="1">5</option>
+                                    <option value="1">6</option>
+                                    <option value="1">7</option>
+                                    <option value="1">8</option>
+                                    <option value="1">9</option>
 
-                    <h2>{detalle.title}</h2>
-                    <p className="price">${detalle.price}</p>
-                    <div className='grid'>
-                        <p className="nuevo">Nuevo</p>
-                        <div className="size">
-                            <select placeholder='Tamaño' >
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                                <option value="1">5</option>
-                                <option value="1">6</option>
-                                <option value="1">7</option>
-                                <option value="1">8</option>
-                                <option value="1">9</option>
+                                </select>
+                                <p >Tipo</p>
 
-                            </select>
-                            <p >Tamaño</p>
-
+                            </div>
                         </div>
-                    </div>
-                    <button onClick={() => addCarrito(detalle.id)} > Añadir al carrito</button>
 
-                    {/* {
+                        {/* {
                         url ? <img src={images} alt={detalle.title} /> : <img src={detalle.image} alt={detalle.title} />
                     } */}
-                    <img src={detalle.image} alt={detalle.title} />
-                    <input type="range" min="1" max="36" value={url} onChange={handleInput} />
-                    <div className="description">
-                        <p><b>description:</b>Lorem ipsum dolor sit amet consectetur,
-                            adipisicing elit. Beatae est pariatur rerum animi quisquam eveniet
-                            ut at aliquam suscipit error. Omnis inventore fuga eligendi,
-                            assumenda porro et consequatur natus provident!. <br />Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, temporibus. Qui laboriosam soluta sequi ut rem magnam assumenda recusandae officia quo totam. Corporis doloribus adipisci blanditiis veniam inventore illum numquam
-                            .</p>
+                        <img src={detalle.image} alt={detalle.title} />
+                        <input type="range" min="1" max="36" value={url} onChange={handleInput} />
+                        <button onClick={() => addCarrito(detalle.id)} >
+                            <box-icon type='solid' name='heart' style={{ verticalAlign: 'middle', fontSize: '10px', }}></box-icon>
+                            Añadir al carrito
+                        </button>
+
+
+                        <div className="description">
+                            <p><b>Description:</b>Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Beatae est pariatur rerum animi quisquam eveniet
+                                ut at aliquam suscipit error. Omnis inventore fuga eligendi,
+                                assumenda porro et consequatur natus provident!. <br />Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, temporibus. Qui laboriosam soluta sequi ut rem magnam assumenda recusandae officia quo totam. Corporis doloribus adipisci blanditiis veniam inventore illum numquam
+                                .</p>
+                        </div>
+
                     </div>
 
-                </div>
-
-            }
-            <h2 className='relacionados '> Productos Relacionados </h2>
-            <div className="productos">
-
-                {productos.map((producto) => {
-                    if ((item < 6) && (detalle.category === producto.category)) {
-                        item++;
-                        return <ProductoItems
-                            key={producto.id}
-                            id={producto.id}
-                            title={producto.title}
-                            price={producto.price}
-                            image={producto.image}
-                            category={producto.category}
-                            cantidad={producto.cantidad}
-                        />
-                    }
-                })
                 }
 
+                <h2 className='relacionados '> Productos Relacionados </h2>
+                <div className="productos">
 
+                    {productos.map((producto) => {
+                        if ((item < 6) && (detalle.category === producto.category)) {
+                            item++;
+                            return <ProductoItems
+                                key={producto.id}
+                                id={producto.id}
+                                title={producto.title}
+                                price={producto.price}
+                                image={producto.image}
+                                category={producto.category}
+                                cantidad={producto.cantidad}
+                            />
+                        }
+                    })
+                    }
 
-
+                </div>
+                <Footer/>  
 
             </div>
         </>

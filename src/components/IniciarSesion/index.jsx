@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import img from "../img/Main_Logo-removebg-preview.png"
+// import img from "../img/Main_Logo-removebg-preview.png"
 import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
@@ -50,24 +50,25 @@ const LoginForm = () => {
   return (
     <Box
       display="flex"
-      marginRight="20px"
       alignItems="center"
-      height="100vh"
+      justifyContent="center"
+      minHeight="100vh"
       style={{
         background: "white",
+        position:"relative",
+        right:"40px"
       }}
 
     >
-      <Box style={{position:"relative",top:"-250px",left:"50px"}}>
-        <img src={img} alt="" style={{ marginRight: "90px", width: "90px", height: "80px" }} />
+      {/* <Box style={{ position: "relative", top: "-250px", left: "50px" }}>
+        <img src={img} alt="" style={{ width: "90px", height: "80px" }} />
 
-      </Box>
+      </Box> */}
       <Box>
 
         <form onSubmit={handleSubmit}>
           <Box
             display="flex"
-            left={"220px"}
             bgcolor="rgba(128, 109, 112, 0.18)"
             borderRadius={8}
             height={350}

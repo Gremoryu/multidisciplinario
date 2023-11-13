@@ -5,6 +5,7 @@ import Menu from "../components/Navbar/Menu"
 import { DataContext } from "../context/Dataprovider";
 import Carrito from "../components/Carrito"
 import ProductoItems from '../components/Productos/ProductoItems';
+import Footer from "../components/Footer/index"
 
 
 export const Inicio = () => {
@@ -17,7 +18,7 @@ export const Inicio = () => {
       <Navbar />
       <Menu />
       <Carrito />
-      <img src={img} alt="" />
+      <img className={"inicio"} src={img} alt="" />
       <div className="productos">
         {
           productos.map(producto => (
@@ -36,7 +37,7 @@ export const Inicio = () => {
         }
 
       </div>
-
+     <Footer/>  
     </div>
 
   )

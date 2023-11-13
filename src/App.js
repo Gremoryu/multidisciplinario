@@ -8,6 +8,8 @@ import AdminPage from "./components/Administrador";
 import InicioSesion from "./components/IniciarSesion/index";
 import Registro from "./components/Registro/index"
 import {ProductoDetalles} from "./components/Productos/ProductoDetalles"
+import Productos from "./components/Administrador/Productos.tsx"
+import Helping from "./components/Administrador/Helping.jsx";
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/inicio" element={<InicioSesion />} />
             <Route path="/registro" element={<Registro />} />
+            <Route path="/AdminProductos" element={<Productos/>}/>
             <Route path="/producto/:id" element={<ProductoDetalles />} />
+            <Route path="/Helping" element={<Helping/>}/>
 
 
           </Routes>

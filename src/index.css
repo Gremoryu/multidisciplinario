@@ -136,13 +136,13 @@ code {
 
 button div a {
   color: white;
-    font-weight: 700;
-    margin-left: 10px;
-  }
+  font-weight: 700;
+  margin-left: 10px;
+}
 
-  button div a:hover {
-    color: white;
-  }
+button div a:hover {
+  color: white;
+}
 
 /* ................INICIO........ */
 
@@ -158,7 +158,8 @@ button div a {
 }
 
 .inicio img {
-  width: 100%;
+  width: 10%;
+  height: auto;
 }
 /* ...............CARRITO............... */
 .carritos {
@@ -346,6 +347,8 @@ button div a {
   justify-content: center;
   align-items: center;
   text-align: center;
+ 
+
 }
 /* -----------------------------------DETALLES PRODUCTO--------------------------- */
 .detalles {
@@ -358,30 +361,33 @@ button div a {
 .detalles h2 {
   font-size: 3rem;
   width: 100%;
-  max-width: 1000px;
+  max-width: 100px;
   margin: 0 auto;
   font-family: Helvetica, sans-serif;
+  margin-left: 800px;
 }
 
 .detalles .price {
   font-size: 2rem;
-  width: 100%;
+  width: 20%;
   color: #000000;
+  margin-left: 800px;
 }
 
 .detalles button {
-  max-width: 200px;
+  max-width: 900px;
   height: 50px;
   margin: 1.4rem 0 0 0;
   padding: 1rem 1rem;
   border: none;
   outline: 0;
-  background: #FFE6BC;
+  background: #ffe6bc;
   font-size: 1rem;
   color: #30333a;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
+  margin-left: 130px;
 }
 
 .detalles .grid {
@@ -390,9 +396,11 @@ button div a {
   gap: 2rem 1rem;
   max-width: 20px;
   align-items: center;
+  margin-left: 700px;
 }
 
-.detalles .grid > .nuevo, .size {
+.detalles .grid > .nuevo,
+.size {
   padding: 1rem 2rem;
   border-radius: 8px;
   font-size: 2rem;
@@ -405,8 +413,19 @@ button div a {
   max-width: 100px;
   height: 20px;
   font-size: 1rem;
-
 }
+
+.detalles .grid > .nuevo {
+  padding: 1rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #1a202c;
+  max-width: 100px; 
+  height: 20px; 
+}
+
 
 .detalles .grid .size {
   background-color: #f1265b;
@@ -417,7 +436,7 @@ button div a {
 }
 .detalles .grid .size p {
   font-size: 1.2rem;
- margin-top: -.1rem;
+  margin-top: -0.1rem;
 }
 
 .detalles .grid .size select {
@@ -431,10 +450,12 @@ button div a {
 }
 
 .detalles input {
-  max-width: 700px;
+  max-width: 400px;
   margin: 0 auto;
+  margin-left: 200px;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
+  margin-top: 2rem;
 }
 
 .detalles .description {
@@ -447,32 +468,308 @@ button div a {
   font-weight: 500;
 }
 
-.detalles .description b{
-  font-size:1.4rem;
-  color:#30333a; 
+.detalles .description b {
+  font-size: 1.4rem;
+  color: #30333a;
 }
 
 .detalles img {
   min-height: 300px;
   object-fit: contain;
-  margin: 0 auto;
   z-index: -1;
-  width: 1000px;
-  height: 400px;
- 
+  width: 900px;
+  height: 200px;
+  margin-left: -30px;
+  margin-top: -250px;
 }
 
-.relacionados{
+.relacionados {
   text-align: center;
   background: #2e2e2e;
   color: white;
   max-width: 350px;
   width: 100%;
-  margin: 2rem auto ;
+  margin: 2rem auto;
   font-size: 18px;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
+
+.detalles .buttom box-icon {
+  width: 15px;
+  height: 15px;
+}
+
+/* -------------------FOOTER--------------------------------- */
+.footer {
+  margin-top: 40px;
+  background-color: #ffffff;
+  padding: 10px 0; 
+}
+
+.footer .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  width: 20%;
+  padding: 0 25px;
+  height: 1%;
+}
+
+.footer .container {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.footer ul {
+  list-style: none;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  color:#826943;
+  text-transform: capitalize;
+  margin-bottom: 10px; 
+  font-weight: 500;
+  position: relative;
+}
+
+.footer-col h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #e91e63;
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+.footer-col ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 300;
+  color: #30333a;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #30333a;
+  padding-left: 8px;
+}
+
+.footer-col .social-links a {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(225, 225, 225, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #30333a;
+  transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+  color:#826943;
+  background-color: #ffffff;
+}
+
+/* ---------------------------------------ADMIN------------------------------------------------------------ */
+/* HEDADER */
+.icon {
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 20px;
+}
+.icon_header {
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 26px;
+}
+.icon, .icon_header {
+  margin-right: 5px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 3fr;
+  grid-template-areas:
+    'sidebar header header header'
+    'sidebar main main main';
+  height: 100vh;
+}
+.header{
+  grid-area:header;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px 0 30px;
+  box-shadow: 0 6px 7px -3px rgba(0,0,0,0.35);
+}
+.menu-icon{
+  display: none;
+}
+/* END-HEADER */
+
+/* SIDEBAR */
+#sidebar{
+  grid-area: sidebar;
+  height: 100%;
+  background-color: #ffffff;
+  overflow: auto;
+  transition: all 0.5s;
+  -webkit-transition:all 0.5s;
+}
+
+.sidebar-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px 0px 30px;
+  margin-bottom: 30px;
+}
+.sidebar-title > span{
+  display: none;
+}
+
+.sidebar-brand{
+  margin-top:15px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.sidebar-list{
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidebar-list-item{
+  padding: 20px 20px 20px 20px;
+  font-size: 18px;
+}
+
+.sidebar-list-item:hover{
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.sidebar-list-item > a {
+  text-decoration: none;
+  color: #000000;
+}
+.sidebar-responsive{
+  display: inline !important;
+  position: absolute;
+  z-index: 12 !important;
+}
+/* END SIDEBAR */
+
+/* MAIN */
+.main-container{
+  grid-area:main;
+  overflow-y: auto;
+  padding: 20px 20px;
+  color: rgba(255,255,255,0.95);
+}
+
+.main-title{
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 15px 0;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.card:first-child{
+  background-color: #2962ff;
+}
+
+.card:nth-child(2){
+  background-color: #ff6d00;
+}
+
+.card:nth-child(3){
+  background-color: #2e7d32;
+}
+
+.card:nth-child(4){
+  background-color: #d50000;
+}
+
+.card-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-inner> .card_icon{
+  font-size: 25px;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 60px;
+  height: 300px;
+}
+/* END MAIN */
+
+.close_icon{
+  color: red;
+  margin-left: 30px;
+  margin-top: 10px;
+  cursor: pointer;
+  
+}
+
+/* Products.css */
+.products {
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
+
 
 
 /* .............MEDIA.......... */
@@ -501,16 +798,24 @@ button div a {
   }
 }
 
+@media screen and (max-width: 450px) {
+  .detalles h2 {
+    display: 0.5rem;
+  }
+  .detalles .grid .size select {
+    width: 39px;
+    height: 30px;
+  }
+}
 
 @media screen and (max-width: 700px) {
   .navbar {
-    flex-direction: column; 
+    flex-direction: column;
   }
   .navbar a {
-    margin: 10px 0; 
-    font-size: 1rem; 
+    margin: 10px 0;
+    font-size: 1rem;
   }
- 
 }
 
 @media screen and (max-width: 450px) {
@@ -519,54 +824,91 @@ button div a {
   }
 }
 
-
 @media (max-width: 600px) {
   .inicio img {
-    display: none !important; 
+    width: 80%;
+    height: auto;
   }
 }
 
-/* Estilos base para pantallas más grandes */
-.AppBar-root {
-  background-color: #FFFFFF;
-  box-shadow: 0px 2px 3px #FFE6BC;
-}
-
-.Toolbar-root {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Estilos para dispositivos móviles (menos de 768px de ancho) */
-@media (max-width: 767px) {
-  .AppBar-root {
-    padding: 10px; /* Añade un poco de espacio en los bordes */
+@media (max-width: 700px) {
+  .detalles img {
+    width: 40%;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    top: 90px;
   }
-
-  .Typography-root {
-    font-size: 1.5rem; /* Reduce el tamaño de la fuente para dispositivos móviles */
+  .detalles .price {
+    font-size: 1rem;
+    margin-left: 0;
   }
-
-  .Input-root {
-    display: none; /* Oculta el campo de búsqueda en dispositivos móviles */
+  .detalles .grid {
+    margin-left: 0;
+    position: relative;
+    top:150px;
   }
-
-  .Button-root {
-    font-size: 1rem; /* Reduce el tamaño de la fuente de los botones */
+  .detalles h2 {
+    font-size: 2rem;
+    margin-left: 0;
   }
-}
-
-/* Estilos base para pantallas más grandes */
-.Button-root {
-  color: inherit;
-}
-
-/* Estilos para dispositivos móviles (menos de 768px de ancho) */
-@media (max-width: 767px) {
-  .Button-root {
-    font-size: 1rem; /* Reduce el tamaño de la fuente para dispositivos móviles */
-    padding: 5px 10px; /* Añade un poco de espacio alrededor de los botones */
+  .detalles input {
+    margin-left: 0;
+    position: relative;
+    bottom: -90px;
+  }
+  .detalles button {
+    position: relative;
+    right: 60px;
   }
 }
 
+@media(max-width: 767px){
+   .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+   }
+}
+@media(max-width: 574px){
+  .footer-col{
+   width: 100%;
+  }
+}
+
+@media screen and (max-width:992px){
+  .grid-container{
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+     'header'
+     'main';
+  }
+  #sidebar{
+    display: none;
+  }
+  .menu-icon{
+    display: inline;
+  }
+
+  .sidebar-title > span{
+    display: inline;
+  }
+}
+
+@media screen and (max-width:768px){
+  .main-cards{
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+  .charts{
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+  }
+}
+@media screen and (max-width: 576px){
+  .header-left{
+    display: none;
+  }
+  
+}
