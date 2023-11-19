@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import img from "../img/Main_Logo-removebg-preview.png"
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -10,6 +10,19 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/clientes");
+        console.log(response.data); 
+      } catch (error) {
+        console.error("Error al obtener datos de la API:", error);
+      }
+    };
+
+    fetchData();
+  }, []); 
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -19,7 +32,7 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
@@ -35,7 +48,24 @@ const LoginForm = () => {
     } else {
       setPasswordError(false);
     }
-    navigate("/");
+
+    try {
+      const url = "http://localhost:3001/clientes";
+      const data = {
+        nombre: "valor",
+        a_paterno: "valor",
+        a_materno: "valor",
+        email: email,
+        password: password,
+      };
+
+      const response = await axios.post(url, data);
+
+      console.log("Respuesta del servidor:", response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error en la solicitud POST:", error.response?.data || error.message);
+    }
   };
 
   const validateEmail = (email) => {
@@ -46,7 +76,6 @@ const LoginForm = () => {
   const validatePassword = (password) => {
     return password.length >= 6 && password[0] === password[0].toUpperCase();
   };
-
   return (
     <Box
       display="flex"

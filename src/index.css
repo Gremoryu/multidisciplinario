@@ -774,6 +774,12 @@ button div a:hover {
 
 /* .............MEDIA.......... */
 
+@media screen and (max-width:700px) {
+  .producto{
+    padding: 1rem 3rem;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .carrito_item {
     width: 92%;
@@ -824,9 +830,12 @@ button div a:hover {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+  .inicio{
+    align-items: center;
+  }
   .inicio img {
-    width: 80%;
+    width: 10%;
     height: auto;
   }
 }

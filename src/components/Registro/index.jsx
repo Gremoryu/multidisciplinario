@@ -83,6 +83,8 @@ const RegisterForm = () => {
     return phone.length >= 10;
   };
 
+  
+
   return (
     <Box
       display="flex"

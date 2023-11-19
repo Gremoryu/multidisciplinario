@@ -15,14 +15,14 @@ export const Navbar = () => {
 
     const toggleMenu = () => {
         setMenu(!menu);
-       
+
     };
 
     const toggleMenuVisible = () => {
         setMenuVisible(!menuVisible);
     }
 
-    
+
 
     const closeMenu = () => {
         setMenuVisible(false);
@@ -34,9 +34,9 @@ export const Navbar = () => {
             <AppBar position="static" sx={{ maxWidth: "100%", bgcolor: "#FFFFFF", boxShadow: "0px 2px 3px#FFE6BC" }}>
                 <Container maxWidth="xl">
                     <Toolbar>
-                    <Link to="/">
-                    <img src={img} alt="Logo" style={{ height: '50px', marginRight: '10px' }} />
-                    </Link>
+                        <Link to="/">
+                            <img src={img} alt="Logo" style={{ height: '50px', marginRight: '10px' }} />
+                        </Link>
                         <Hidden smDown>
                             <Input
                                 placeholder="Buscar"
@@ -78,12 +78,21 @@ export const Navbar = () => {
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
-                        
                         <Menu
                             anchorEl={menuVisible ? document.body : null}
                             open={menuVisible}
                             onClose={closeMenu}
-                        >
+                            anchorOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                            }}
+                            transformOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                            }}
+                        >   
+
+
                             <MenuItem onClick={closeMenu} component={Link} to="/" sx={{ fontSize: "14px" }}>
                                 Inicio
                             </MenuItem>

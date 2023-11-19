@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Header from './Header';
 
 function Helping() {
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle);
+  };
   return (
     <div>
+      <Header OpenSidebar={OpenSidebar} />
       <h2>¡Bienvenido a la página de ayuda!</h2>
       <p>
         Aquí encontrarás información útil para utilizar la aplicación de manera eficiente.

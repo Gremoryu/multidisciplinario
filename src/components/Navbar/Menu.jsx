@@ -27,6 +27,7 @@ export default function CategoryMenu() {
             </Hidden>
             {isMobile ? ( 
                 <>
+                
                     <Button color="inherit" style={{ fontSize: "7px" , margin: "0 -10px"}}>
                         Tendencia
                     </Button>
