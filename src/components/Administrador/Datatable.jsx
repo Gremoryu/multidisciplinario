@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
-const DataTable = ({ slug, columns, rows, handleEliminar, handleModificar}) => {
+const DataTable = ({ columns, rows, handleEliminar, handleModificar }) => {
   const columnsWithActions = [
     ...columns,
     {
@@ -10,8 +10,12 @@ const DataTable = ({ slug, columns, rows, handleEliminar, handleModificar}) => {
       width: 150,
       renderCell: (params) => (
         <>
-          <button onClick={() => handleModificar(params.row)}>Edit</button>
-          <button onClick={() => handleEliminar(params.row.id)}>Delete</button>
+          <button onClick={() => handleModificar(params.row.id)}>
+            Edit
+          </button>
+          <button onClick={() => handleEliminar(params.row.id)}>
+            Delete
+          </button>
         </>
       ),
     },

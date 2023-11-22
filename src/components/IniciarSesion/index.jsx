@@ -50,7 +50,7 @@ const LoginForm = () => {
     }
 
     try {
-      const url = "http://localhost:3001/clientes";
+      const url = "http://localhost:3001/clientes"; 
       const data = {
         nombre: "valor",
         a_paterno: "valor",
@@ -76,6 +76,8 @@ const LoginForm = () => {
   const validatePassword = (password) => {
     return password.length >= 6 && password[0] === password[0].toUpperCase();
   };
+
+
   return (
     <Box
       display="flex"

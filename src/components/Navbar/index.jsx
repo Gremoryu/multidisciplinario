@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../../context/Dataprovider";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import img from "../img/Main_Logo-removebg-preview.png"
+import img from "../img/Main_Logo-removebg-preview.png";
 
 export const Navbar = () => {
     const value = useContext(DataContext);
@@ -12,21 +12,33 @@ export const Navbar = () => {
     const [carrito] = value.carrito;
     const [menuVisible, setMenuVisible] = useState(false);
     const [cartMenuVisible, setCartMenuVisible] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     const toggleMenu = () => {
         setMenu(!menu);
-
     };
 
     const toggleMenuVisible = () => {
         setMenuVisible(!menuVisible);
-    }
-
-
+    };
 
     const closeMenu = () => {
         setMenuVisible(false);
         setCartMenuVisible(false);
+    };
+
+    const handleSearchChange = (event) => {
+        const term = event.target.value;
+        setSearchTerm(term);
+
+        if (value.productos) {
+            const filtered = value.productos.filter(producto =>
+                producto.title && producto.title.toLowerCase().includes(term.toLowerCase())
+            );
+
+            setFilteredProducts(filtered);
+        }
     };
 
     return (
@@ -47,6 +59,8 @@ export const Navbar = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
+                                value={searchTerm}
+                                onChange={handleSearchChange}
                                 sx={{ flexGrow: 1, color: "#000000", marginRight: "16px" }}
                             />
                         </Hidden>
@@ -90,9 +104,7 @@ export const Navbar = () => {
                                 vertical: "top",
                                 horizontal: "right",
                             }}
-                        >   
-
-
+                        >
                             <MenuItem onClick={closeMenu} component={Link} to="/" sx={{ fontSize: "14px" }}>
                                 Inicio
                             </MenuItem>
@@ -107,12 +119,9 @@ export const Navbar = () => {
                             </MenuItem>
                         </Menu>
 
-                        <Menu
-                            anchorEl={cartMenuVisible ? document.body : null}
-                            open={cartMenuVisible}
-                            onClose={closeMenu}
-                        >
-                        </Menu>
+                        {filteredProducts.map((producto) => (
+                            <div key={producto.id}>{producto.title}</div>
+                        ))}
                     </Toolbar>
                 </Container>
             </AppBar>
