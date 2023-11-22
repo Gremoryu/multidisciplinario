@@ -10,7 +10,7 @@ const DataTable = ({ columns, rows, handleEliminar, handleModificar }) => {
       width: 150,
       renderCell: (params) => (
         <>
-          <button onClick={() => handleModificar(params.row.id)}>
+          <button onClick={() => handleModificar(params.row)}>
             Edit
           </button>
           <button onClick={() => handleEliminar(params.row.id)}>

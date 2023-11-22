@@ -7,35 +7,105 @@ import axios from "axios";
 
 interface Product {
   id: number;
-  image: string;
-  title: string;
-  price: number;
+  url_img: string;
+  nombre: string; 
+  descripcion: string; 
+  id_categoria: number;
+  precio: number;
+  cantidad_disponible: number; 
+  rating: number; 
+  id_color: number; 
+  talla: string | null; 
+  created_at: string; 
+  deleted: string; 
+  deleted_at: string | null; 
+  updated_at: string | null; 
 }
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "image",
+    field: "url_img",
     headerName: "Image",
     width: 100,
     renderCell: (params) => (
       <img
-        src={params.row.image || "../components/img/mochilacafe_vistafrente.png"}
+        src={params.row.url_img || "../components/img/mochilacafe_vistafrente.png"}
         alt=""
         style={{ width: "50px", height: "50px" }}
       />
     ),
   },
   {
-    field: "title",
+    field: "nombre",
     type: "string",
-    headerName: "Title",
-    width: 250,
+    headerName: "Nombre",
+    width: 200,
   },
   {
-    field: "price",
+    field: "descripcion",
     type: "string",
-    headerName: "Price",
+    headerName: "Descripción",
+    width: 300,
+  },
+  {
+    field: "id_categoria",
+    type: "number",
+    headerName: "Categoría ID",
+    width: 150,
+  },
+  {
+    field: "precio",
+    type: "number",
+    headerName: "Precio",
+    width: 200,
+  },
+  {
+    field: "cantidad_disponible",
+    type: "number",
+    headerName: "Cantidad Disponible",
+    width: 200,
+  },
+  {
+    field: "rating",
+    type: "number",
+    headerName: "Rating",
+    width: 150,
+  },
+  {
+    field: "id_color",
+    type: "number",
+    headerName: "Color ID",
+    width: 150,
+  },
+  {
+    field: "talla",
+    type: "string",
+    headerName: "Talla",
+    width: 100,
+  },
+  {
+    field: "created_at",
+    type: "string",
+    headerName: "Fecha de Creación",
+    width: 200,
+  },
+  {
+    field: "deleted",
+    type: "string",
+    headerName: "Eliminado",
+    width: 120,
+  },
+  {
+    field: "deleted_at",
+    type: "string",
+    headerName: "Fecha de Eliminación",
+    width: 200,
+  },
+  {
+    field: "updated_at",
+    type: "string",
+    headerName: "Fecha de Actualización",
     width: 200,
   },
 ];
@@ -51,9 +121,9 @@ const Products = () => {
         const response = await axios.get("http://localhost:3001/producto");
         const fetchedProducts: Product[] = response.data.data;
 
-        const mappedProducts = fetchedProducts.map((product, index) => ({
+        const mappedProducts = fetchedProducts.map((product) => ({
           ...product,
-          id: index + 1,
+          id: product.id,
         }));
 
         setProducts(mappedProducts);
@@ -65,19 +135,32 @@ const Products = () => {
     fetchData();
   }, []);
 
-
   const addProduct = async (newProduct: Product) => {
     try {
-      const response = await axios.post("http://localhost:3001/producto", newProduct);
+      const response = await axios.post("http://localhost:3001/producto", {
+        nombre: newProduct.nombre,
+        descripcion: newProduct.descripcion,
+        id_categoria: newProduct.id_categoria,
+        precio: newProduct.precio,
+        cantidad_disponible: newProduct.cantidad_disponible,
+        url_img: newProduct.url_img,
+        rating: newProduct.rating,
+        id_color: newProduct.id_color,
+        talla: newProduct.talla,
+      });
+  
       console.log("Respuesta del servidor al agregar producto:", response.data);
-      setProducts((prevProducts) => [...prevProducts, response.data.producto]);
-      setOpen(false); // Cerrar el modal después de agregar el producto
+  
+      const addedProduct = response.data.producto;
+  
+      setProducts((prevProducts) => [...prevProducts, addedProduct]);
+      setOpen(false);
     } catch (error) {
       console.error("Error al agregar producto:", error.response);
-      // Aquí puedes manejar el error de manera apropiada, por ejemplo, mostrando un mensaje al usuario.
     }
   };
   
+
   const handleEliminar = async (productId: number) => {
     try {
       await axios.delete(`http://localhost:3001/producto/${productId}`);
@@ -89,13 +172,43 @@ const Products = () => {
     }
   };
 
+  const editProduct = async (editedProduct: Product) => {
+    try {
+      if (!editedProduct || editedProduct.id === undefined) {
+        console.error("El producto a editar es inválido:", editedProduct);
+        return;
+      }
+
+      const response = await axios.patch(`http://localhost:3001/producto/${editedProduct.id}`, {
+        nombre: editedProduct.nombre,
+        descripcion: editedProduct.descripcion,
+        id_categoria: editedProduct.id_categoria,
+        precio: editedProduct.precio,
+        cantidad_disponible: editedProduct.cantidad_disponible,
+        url_img: editedProduct.url_img,
+        rating: editedProduct.rating,
+        id_color: editedProduct.id_color,
+        talla: editedProduct.talla,
+      });
+
+      console.log("Respuesta del servidor al actualizar producto:", response.data);
+
+      const updatedProduct = response.data.producto;
+
+      setProducts((prevProducts) => {
+        return prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product));
+      });
+
+      setOpen(false);
+    } catch (error) {
+      console.error("Error al actualizar producto:", error.response);
+    }
+  };
 
   const handleModificar = (product: Product) => {
     setEditedProduct(product);
-    setOpen(true); 
+    setOpen(true);
   };
-
- 
 
   const OpenSidebar = () => {
     setOpen(!open);
@@ -116,13 +229,15 @@ const Products = () => {
       />
       {open && (
         <Add
-          setOpen={setOpen}
-          addProduct={addProduct}
-          editProduct={handleModificar}
-          editedProduct={editedProduct} slug={undefined} columns={undefined}        />
+        setOpen={setOpen}
+        addProduct={addProduct}
+        editProduct={editProduct}  
+        editedProduct={editedProduct}
+        />
       )}
     </div>
   );
 };
 
 export default Products;
+
