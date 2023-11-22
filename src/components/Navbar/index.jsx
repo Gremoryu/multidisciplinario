@@ -28,18 +28,27 @@ export const Navbar = () => {
         setCartMenuVisible(false);
     };
 
+    const closeSearchResults = () => {
+        setSearchTerm("");
+        setFilteredProducts([]);
+    };
+
     const handleSearchChange = (event) => {
         const term = event.target.value;
         setSearchTerm(term);
 
         if (value.productos) {
-            const filtered = value.productos.filter(producto =>
-                producto.title && producto.title.toLowerCase().includes(term.toLowerCase())
-            );
-
-            setFilteredProducts(filtered);
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                const filtered = value.productos.filter(producto =>
+                    producto.title && producto.title.toLowerCase().includes(term.toLowerCase())
+                );
+                setFilteredProducts(filtered);
+            }, 300); // ajusta el tiempo de espera según tus necesidades
         }
     };
+
+    let timer;
 
     return (
         <div>
@@ -61,6 +70,7 @@ export const Navbar = () => {
                                 }
                                 value={searchTerm}
                                 onChange={handleSearchChange}
+                                onBlur={closeSearchResults}
                                 sx={{ flexGrow: 1, color: "#000000", marginRight: "16px" }}
                             />
                         </Hidden>
@@ -120,7 +130,9 @@ export const Navbar = () => {
                         </Menu>
 
                         {filteredProducts.map((producto) => (
-                            <div key={producto.id}>{producto.title}</div>
+                            <Link key={producto.id} to={`/producto/${producto.id}`}>
+                                <div>{producto.title}</div>
+                            </Link>
                         ))}
                     </Toolbar>
                 </Container>

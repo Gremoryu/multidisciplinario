@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 function Helping() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -7,6 +9,21 @@ function Helping() {
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
+
+  const handleDownloadPDF = async () => {
+    console.log('Haciendo clic en Descargar como PDF');
+    const element = document.getElementById('helping-content');
+
+    // Convertir el contenido a una imagen usando html2canvas
+    const canvas = await html2canvas(element);
+    const imgData = canvas.toDataURL('image/png');
+
+    // Crear un nuevo documento PDF
+    const pdf = new jsPDF();
+    pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+    pdf.save('ayuda.pdf');
+  };
+
   return (
     <div>
       <Header OpenSidebar={OpenSidebar} />
@@ -15,7 +32,7 @@ function Helping() {
         Aquí encontrarás información útil para utilizar la aplicación de manera eficiente.
       </p>
 
-      <section>
+      <section id="helping-content">
         <h3>Subir Productos</h3>
         <p>
           Para subir nuevos productos, sigue estos pasos:
@@ -31,10 +48,10 @@ function Helping() {
           Recuerda proporcionar detalles claros y atractivos para que los clientes comprendan mejor tus productos.
         </p>
       </section>
-
-      {/* Puedes agregar más secciones según sea necesario */}
+      <button onClick={handleDownloadPDF}>Descargar como PDF</button>
     </div>
   );
 }
 
 export default Helping;
+
