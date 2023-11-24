@@ -4,22 +4,22 @@ import Add from "./Add";
 import { GridColDef } from "@mui/x-data-grid";
 import Header from "./Header";
 import axios from "axios";
+import ProductoItems from "../Productos/ProductoItems";
 
 interface Product {
-  id: number;
   url_img: string;
-  nombre: string; 
-  descripcion: string; 
+  nombre: string;
+  descripcion: string;
   id_categoria: number;
   precio: number;
-  cantidad_disponible: number; 
-  rating: number; 
-  id_color: number; 
-  talla: string | null; 
-  created_at: string; 
-  deleted: string; 
-  deleted_at: string | null; 
-  updated_at: string | null; 
+  cantidad_disponible: number;
+  rating: number;
+  id_color: number;
+  talla: string | null;
+  created_at: string;
+  deleted: string;
+  deleted_at: string | null;
+  updated_at: string | null;
 }
 
 const columns: GridColDef[] = [
@@ -116,43 +116,28 @@ const Products = () => {
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/producto");
-        const fetchedProducts: Product[] = response.data.data;
-
-        const mappedProducts = fetchedProducts.map((product) => ({
-          ...product,
-          id: product.id,
-        }));
-
-        setProducts(mappedProducts);
-      } catch (error) {
-        console.error("Error al obtener productos:", error.response);
-      }
-    };
-
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/producto");
+      const fetchedProducts: Product[] = response.data.data;
+  
+      setProducts(fetchedProducts);
+    } catch (error) {
+      console.error("Error al obtener productos:", error.response);
+    }
+  };
+  
+
   const addProduct = async (newProduct: Product) => {
     try {
-      const response = await axios.post("http://localhost:3001/producto", {
-        nombre: newProduct.nombre,
-        descripcion: newProduct.descripcion,
-        id_categoria: newProduct.id_categoria,
-        precio: newProduct.precio,
-        cantidad_disponible: newProduct.cantidad_disponible,
-        url_img: newProduct.url_img,
-        rating: newProduct.rating,
-        id_color: newProduct.id_color,
-        talla: newProduct.talla,
-      });
-  
+      const response = await axios.post("http://localhost:3001/producto", newProduct);
+      
       console.log("Respuesta del servidor al agregar producto:", response.data);
   
-      const addedProduct = response.data.producto;
-  
+      const addedProduct = response.data.producto;  
       setProducts((prevProducts) => [...prevProducts, addedProduct]);
       setOpen(false);
     } catch (error) {
@@ -160,7 +145,7 @@ const Products = () => {
     }
   };
   
-
+  
   const handleEliminar = async (productId: number) => {
     try {
       await axios.delete(`http://localhost:3001/producto/${productId}`);
@@ -172,39 +157,30 @@ const Products = () => {
     }
   };
 
-  const editProduct = async (editedProduct: Product) => {
+  const editProduct = async (updatedProduct: Product) => {
     try {
-      if (!editedProduct || editedProduct.id === undefined) {
-        console.error("El producto a editar es inválido:", editedProduct);
+      if (!updatedProduct) {
+        console.error("El producto a editar es inválido:", updatedProduct);
         return;
       }
-
-      const response = await axios.patch(`http://localhost:3001/producto/${editedProduct.id}`, {
-        nombre: editedProduct.nombre,
-        descripcion: editedProduct.descripcion,
-        id_categoria: editedProduct.id_categoria,
-        precio: editedProduct.precio,
-        cantidad_disponible: editedProduct.cantidad_disponible,
-        url_img: editedProduct.url_img,
-        rating: editedProduct.rating,
-        id_color: editedProduct.id_color,
-        talla: editedProduct.talla,
-      });
-
+  
+      const response = await axios.patch(`http://localhost:3001/producto/${updatedProduct.id}`, updatedProduct);
+  
       console.log("Respuesta del servidor al actualizar producto:", response.data);
-
-      const updatedProduct = response.data.producto;
-
+  
+      const updatedProductFromServer = response.data.producto;
+  
       setProducts((prevProducts) => {
-        return prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product));
+        return prevProducts.map((product) => (product.id === updatedProductFromServer.id ? updatedProductFromServer : product));
       });
-
+  
       setOpen(false);
     } catch (error) {
       console.error("Error al actualizar producto:", error.response);
     }
   };
-
+  
+  
   const handleModificar = (product: Product) => {
     setEditedProduct(product);
     setOpen(true);
@@ -229,15 +205,24 @@ const Products = () => {
       />
       {open && (
         <Add
-        setOpen={setOpen}
-        addProduct={addProduct}
-        editProduct={editProduct}  
-        editedProduct={editedProduct}
+          setOpen={setOpen}
+          addProduct={addProduct}
+          editProduct={editProduct}
+          editedProduct={editedProduct}
         />
       )}
+        {products.map((product) => (
+      <ProductoItems
+        key={product.id}
+        id={product.id}
+        image={product.url_img}
+        title={product.nombre}
+        category={product.id_categoria}
+        price={product.precio}
+      />
+    ))}
     </div>
   );
 };
 
 export default Products;
-

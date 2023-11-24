@@ -12,27 +12,27 @@ function Sidebar({openSidebarToggle,OpenSidebar}) {
             </div>
 
             <ul className='sidebar-list'>
-                <li className='sidebar-list-item'>
+                {/* <li className='sidebar-list-item'>
                     <a href="&">
                         <BsGrid1X2Fill className='icon'/> Dashboard
                     </a>
-                </li>
+                </li> */}
                 <li className='sidebar-list-item'>
                     <a href="/AdminProductos">
-                        < BsFillArchiveFill className='icon'/> Products
+                        < BsFillArchiveFill className='icon'/> Productos
+                    </a>
+                </li>
+                 <li className='sidebar-list-item'>
+                    <a href="&">
+                        <BsFillGrid3X3GapFill className='icon'/> Categorias
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a href="&">
-                        <BsFillGrid3X3GapFill className='icon'/> Categories
+                        <BsPeopleFill className='icon'/> Colores
                     </a>
                 </li>
-                <li className='sidebar-list-item'>
-                    <a href="&">
-                        <BsPeopleFill className='icon'/> Customers
-                    </a>
-                </li>
-                <li className='sidebar-list-item'>
+                {/* <li className='sidebar-list-item'>
                     <a href="&">
                         <BsListCheck className='icon'/> Inventory
                     </a>
@@ -46,7 +46,7 @@ function Sidebar({openSidebarToggle,OpenSidebar}) {
                     <a href="&">
                         <BsFillGearFill className='icon'/> Setting
                     </a>
-                </li>
+                </li> * */}
                 <li className='sidebar-list-item'>
                     <a href="/Helping">
                         <BsQuestionCircleFill className='icon'/> HELP

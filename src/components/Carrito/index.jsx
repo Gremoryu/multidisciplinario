@@ -7,58 +7,102 @@ export default function Carrito() {
   const [carrito, setCarrito] = value.carrito;
   const [total, setTotal] = value.total;
   const [loading, setLoading] = useState(false);
+  const [setPaymentSuccess] = useState(false);
 
   const tooglefalse = () => {
     setMenu(false);
   };
 
   const suma = (id) => {
+    const newCarrito = carrito.map((producto) => {
+      if (producto.id === id) {
+        return { ...producto, cantidad: producto.cantidad + 1 };
+      }
+      return producto;
+    });
+  
+    setCarrito(newCarrito);
+    console.log("Carrito después de suma:", newCarrito);
+    calcularTotal(newCarrito);
   };
+  
+  
 
   const resta = (id) => {
+    const newCarrito = carrito.map((producto) => {
+      if (producto.id === id && producto.cantidad > 1) {
+        return { ...producto, cantidad: producto.cantidad - 1 };
+      }
+      return producto;
+    });
+
+    setCarrito(newCarrito);
+    calcularTotal(newCarrito);
   };
 
   const removeProducto = (id) => {
+    const newCarrito = carrito.filter((producto) => producto.id !== id);
+
+    setCarrito(newCarrito);
+    calcularTotal(newCarrito);
   };
 
+  const calcularTotal = (carrito) => {
+    const newTotal = carrito.reduce((acc, item) => acc + item.price * item.cantidad, 0);
+    setTotal(newTotal);
+  };
+ 
+ 
   const handlePayment = async () => {
     try {
-      setLoading(true);
+      console.log("Datos del carrito antes de la venta:", carrito);
 
-      const response = await fetch("http://localhost:3001/venta", {
+      setLoading(true);
+  
+      const ventaProductos = carrito.map((item) => ({
+        id_producto: item.id,
+        cantidad: item.cantidad,
+        total: item.price * item.cantidad, 
+        subtotal: item.price * item.cantidad,
+        descuento: 0,
+      }));
+  
+      const ventaResponse = await fetch("http://localhost:3001/ventas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          cantidad: carrito.reduce((acc, item) => acc + item.cantidad, 0),
-          total,
-          subtotal: total,
+          cantidad: carrito.length > 0 ? carrito.reduce((acc, item) => acc + item.cantidad, 0) : 0,
+          total, 
+          subtotal: total, 
           descuento: 0,
-          venta_producto: carrito.map((item) => ({
-            id_producto: item.id,
-            cantidad: item.cantidad,
-            total: item.price * item.cantidad,
-            subtotal: item.price * item.cantidad,
-            descuento: 0,
-          })),
+          venta_producto: ventaProductos,
         }),
       });
-
-      if (response.ok) {
+  
+      if (ventaResponse.ok) {
+        const ventaData = await ventaResponse.json();
+        console.log("Venta creada exitosamente:", ventaData);
         setCarrito([]);
         setTotal(0);
-
-        console.log("Venta creada exitosamente");
+        setPaymentSuccess(true);
       } else {
-        console.error("Error al crear la venta:", response.statusText);
+        const errorData = await ventaResponse.json();
+        console.error("Error al crear la venta:", ventaResponse.statusText, errorData);
       }
     } catch (error) {
       console.error("Error al procesar el pago:", error);
+      
     } finally {
       setLoading(false);
     }
   };
+  
+  
+  
+  
+ 
   return (
     <div className={menu ? "carritos show" : "carritos"}>
       <div className={menu ? "carrito show" : "carrito"}>

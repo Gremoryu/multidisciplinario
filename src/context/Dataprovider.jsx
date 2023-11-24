@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
-import Data from "../components/Data";
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const DataContext = createContext();
 
@@ -10,48 +10,46 @@ export const DataProvider = (props) => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const producto = Data.items;
-    if (producto) {
-      setProductos(producto);
-    } else {
-      setProductos([]);
-    }
-    setProductos(producto);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/producto');
+        const data = response.data.data;
+        setProductos(data);
+      } catch (error) {
+        console.error('Error al obtener productos:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const addCarrito = (id) => {
-    console.log("Añadiendo producto al carrito con ID:", id);
+  const addCarrito = (producto) => {
+    console.log('Añadiendo producto al carrito:', producto);
     const check = carrito.every((item) => {
-      return item.id !== id;
+      return item.id !== producto.id;
     });
-    console.log("Check:", check);
 
     if (check) {
-      const data = productos.filter((producto) => {
-        return producto.id === id;
-      });
-      console.log("Datos a agregar al carrito:", data);
-
       setCarrito((prevCarrito) => {
-        const newCarrito = [...prevCarrito, ...data];
-        localStorage.setItem("dataCarrito", JSON.stringify(newCarrito));
-        console.log("Carrito actualizado:", newCarrito);
+        const newCarrito = [...prevCarrito, { ...producto, cantidad: 1 }];
+        localStorage.setItem('dataCarrito', JSON.stringify(newCarrito));
+        console.log('Carrito actualizado:', newCarrito);
         return newCarrito;
       });
     } else {
-      alert("El producto ya se ha añadido al carrito");
+      alert('El producto ya se ha añadido al carrito');
     }
   };
 
   useEffect(() => {
-    const dataCarrito = JSON.parse(localStorage.getItem("dataCarrito"));
+    const dataCarrito = JSON.parse(localStorage.getItem('dataCarrito'));
     if (dataCarrito) {
       setCarrito(dataCarrito);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("dataCarrito", JSON.stringify(carrito));
+    localStorage.setItem('dataCarrito', JSON.stringify(carrito));
   }, [carrito]);
 
   useEffect(() => {
@@ -59,19 +57,18 @@ export const DataProvider = (props) => {
       const res = carrito.reduce((prev, item) => {
         return prev + item.price * item.cantidad;
       }, 0);
-      setTotal(res); 
+      setTotal(res);
     };
 
-    calculateTotal(); 
-
+    calculateTotal();
   }, [carrito]);
 
   const value = {
-    productos: [productos],
+    productos,
     menu: [menu, setMenu],
-    addCarrito: addCarrito,
+    addCarrito,
     carrito: [carrito, setCarrito],
-    total: [total, setTotal]
+    total: [total, setTotal],
   };
 
   return (

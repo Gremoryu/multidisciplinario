@@ -4,6 +4,9 @@ import { BarChart, Bar, Rectangle,LineChart, Line, XAxis, YAxis, CartesianGrid, 
 
 
 function Home() {
+
+    
+
     const data = [
         {
             name: 'Page A',
@@ -48,6 +51,8 @@ function Home() {
             amt: 2100,
         },
     ];
+
+    
     return (
         <main className='main-container'>
             <div className='main-title'>
